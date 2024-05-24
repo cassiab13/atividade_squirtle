@@ -27,7 +27,9 @@ function createElements() {
     const li = document.createElement('li');
     const a = document.createElement('a');
     const article = document.createElement('article');
-    return { section, h1, h2, div, img1, img2, p, ul, li, a, article};
+    const figure = document.createElement('figure');
+    const figcaption = document.createElement('figcaption');
+    return { section, h1, h2, div, img1, img2, p, ul, li, a, article, figure, figcaption};
 }
 
 function createHeader() {
@@ -53,8 +55,7 @@ function createNav() {
     nav.append(ul);
 
     links.forEach(link => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
+        let { a, li } = createElements();
         ul.appendChild(li);
         li.appendChild(a);
         a.href = link.href;
@@ -72,12 +73,12 @@ function createSectionInfoSquirtle() {
     h2.setAttribute('id', 'info-squirtle-label');
     h2.textContent = 'Informações sobre Squirtle';
     section.appendChild(div);
-    div.appendChild(img1);
     img1.setAttribute('src', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png');
     img1.setAttribute('alt', 'Squirtle 1');
-    div.appendChild(img2);
+    div.appendChild(img1);
     img2.setAttribute('src', 'https://archives.bulbagarden.net/media/upload/thumb/7/79/Squirtle_SSBU.png/200px-Squirtle_SSBU.png');
     img2.setAttribute('alt', 'Squirtle 2');
+    div.appendChild(img2);
     section.appendChild(p);
     p.textContent = 'Squirtle é um Pokémon do tipo Água. É o Pokémon inicial da região de Kanto e evolui para Wartortle.'
 }
@@ -97,7 +98,7 @@ function createSectionCaracteristicas() {
 
 function createSectionCuriosidades() {
     const { section, h2, ul } = createElements();
-
+    
     main.append(section);
     section.setAttribute('id', 'curiosidades');
     section.setAttribute('aria-labelledby', 'curiosidades-label');
@@ -113,7 +114,7 @@ function createSectionCuriosidades() {
     ]
 
     texts.forEach(text => {
-        const li = document.createElement('li');
+        let { li } = createElements();
         li.textContent = text;
         ul.appendChild(li);
     })
@@ -134,7 +135,7 @@ function createArticleArtigoSquirtle() {
     ]
 
     texts.forEach(text => {
-        const p = document.createElement('p');
+        let { p } = createElements();
         p.textContent = text;
         article.appendChild(p);
     })
@@ -143,7 +144,7 @@ function createArticleArtigoSquirtle() {
 function createSectionRecursos() {
     const { section, h2, ul } = createElements();
     main.append(section);
-    section.setAttribute('id', 'recursos');
+    section.id = 'recursos';
     section.setAttribute('aria-labelledby', 'recursos-label');
     section.appendChild(h2);
     h2.setAttribute('id', 'recursos-label');
@@ -156,9 +157,8 @@ function createSectionRecursos() {
     ]
 
     links.forEach(link => {
-        const li = document.createElement('li');
+        let { a, li } = createElements()
         ul.appendChild(li)
-        const a = document.createElement('a');
         a.href = link.href;
         a.setAttribute('target', link.target);
         a.textContent = link.text;
@@ -183,26 +183,22 @@ function createSectionEvolucao() {
     ]
 
     links.forEach(link => {        
-        const li = document.createElement('li');
-        ul.appendChild(li);
-        const a = document.createElement('a');
-        const figure = document.createElement('figure');
-        const img = document.createElement('img');
-        const figcaption = document.createElement('figcaption');
+        let { a, li, figure, img1, figcaption } = createElements()
+        ul.appendChild(li);       
         a.href = link.href;
         li.appendChild(a);
         a.appendChild(figure);
-        img.src = link.src;
-        img.alt = link.alt;
+        img1.src = link.src;
+        img1.alt = link.alt;
         figcaption.textContent = link.text;
-        figure.appendChild(img);
+        figure.appendChild(img1);
         figure.appendChild(figcaption);
     })
 }
 
 function createFooter() {
     const footer = document.querySelector('footer')
-    const p = document.createElement('p');
+    const { p } = createElements();
     p.setAttribute('aria-label', 'Copyright');
     p.textContent = '© 2024 Página do Pokémon Squirtle. Todos os direitos reservados.';
     footer.appendChild(p);
@@ -214,8 +210,7 @@ function createFooter() {
     ]
 
     links.forEach(link => {
-        const p = document.createElement('p');
-        const a = document.createElement('a');
+        let { a, p } = createElements();
         a.href = link.href;
         a.textContent = link.text;
         p.appendChild(a);
